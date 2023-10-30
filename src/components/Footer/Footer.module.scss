@@ -1,0 +1,54 @@
+$font-color: #9E9E9E;
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  padding: 48px 0  80px;
+
+  background-color: #202329;
+}
+
+.text {
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  color: $font-color;
+  margin-bottom: 34px;
+} 
+
+.image_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 56px;
+}
+
+.logo_bg {
+  position: absolute;
+
+  height: 212px;
+  width: 212px;
+}
+
+.logo {
+  position: relative;
+  z-index: 1;
+}
+
+
+.social_links {
+  display: flex;
+  gap: 27px;
+  margin-bottom: 24px;
+}
+
+.year {
+  font-size: 12px;
+  font-weight: 400;
+  color: $font-color;
+}
