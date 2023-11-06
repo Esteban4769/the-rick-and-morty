@@ -61,26 +61,27 @@ export const History: React.FC<Props> = ({ onClose }) => {
           </>
         )}
 
-        <div className={style.buttons_wrapper}>
-          <Button
-            className={style.button}
-            variant="outlined"
-            onClick={() => handleClick(-1)}
-            disabled={isFirst}
-          >
-            Prev
-          </Button>
+        {!!data.length && (
+          <div className={style.buttons_wrapper}>
+            <Button
+              className={style.button}
+              variant="outlined"
+              onClick={() => handleClick(-1)}
+              disabled={isFirst}
+            >
+              Prev
+            </Button>
 
-          <Button
-            className={style.button}
-            variant="outlined"
-            onClick={() => handleClick(1)}
-            disabled={isLast}
-          >
-            Next
-          </Button>
-        </div>
-
+            <Button
+              className={style.button}
+              variant="outlined"
+              onClick={() => handleClick(1)}
+              disabled={isLast}
+            >
+              Next
+            </Button>
+          </div>
+        )}
       </div>
 
       <Button
