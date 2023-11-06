@@ -1,8 +1,7 @@
 /* eslint-disable no-param-reassign */
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getCharacters } from '../api/character';
 import { CharactersApiData } from '../types/CharactersApiData';
-import { Character } from '../types/Character';
 import { CharacterParams } from '../types/CharacterParams';
 
 interface CharacterState {
@@ -25,8 +24,8 @@ const characterSlice = createSlice({
   name: 'character',
   initialState,
   reducers: {
-    add: (state, action: PayloadAction<Character>) => {
-      state.data?.results.push(action.payload);
+    clear: (state) => {
+      state.data = null;
     },
   },
   extraReducers: (builder) => {
@@ -47,4 +46,4 @@ const characterSlice = createSlice({
 });
 
 export default characterSlice.reducer;
-export const { add } = characterSlice.actions;
+export const { clear } = characterSlice.actions;

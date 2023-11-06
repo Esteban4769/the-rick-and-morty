@@ -5,9 +5,6 @@ import { client } from './client';
 export const getCharacters = async (params: CharacterParams) => {
   const paramsString = getParamsString(params);
 
-  // eslint-disable-next-line no-console
-  console.log(paramsString);
-
   return client.get(`character${paramsString}`);
 };
 

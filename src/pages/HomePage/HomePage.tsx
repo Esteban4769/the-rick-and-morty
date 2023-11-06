@@ -29,6 +29,8 @@ export const HomePage = () => {
   const loadCharacters = async (page: number = currentPage) => {
     const appliedFilters = characterFilter || { };
 
+    dispatch(characterActions.clear());
+
     dispatch(characterActions.fetchData({ page, ...appliedFilters }));
   };
 
@@ -43,10 +45,27 @@ export const HomePage = () => {
   return (
     <div className={style.container}>
 
+      {isFiltering ? (
+        <Filter onBgClick={handleFilterToggle} />
+      ) : (
+        <Button
+          sx={{
+            ...buttonStyle,
+            position: 'absolute',
+            top: '40px',
+            left: '118px',
+          }}
+          variant="outlined"
+          onClick={() => handleFilterToggle(true)}
+        >
+          Filter
+        </Button>
+      )}
+
       {!data && !loading && error && (
-        <div className={style.error}>
+        <p className={style.error}>
           Error on loading
-        </div>
+        </p>
       )}
 
       {!data && loading && !error && (
@@ -57,22 +76,16 @@ export const HomePage = () => {
 
       {data && !loading && !error && (
         <div className={style.page_items_wrapper}>
-          {isFiltering ? (
-            <Filter onBgClick={handleFilterToggle} />
-          ) : (
-            <Button
-              sx={buttonStyle}
-              variant="outlined"
-              onClick={() => handleFilterToggle(true)}
-            >
-              Filter
-            </Button>
-          )}
-
           <CharacterList characters={data.results} />
 
           <PagePagination pageCount={pageCount} currentPage={currentPage} />
         </div>
+      )}
+
+      {data && !loading && !error && !data.results.length && (
+        <p className={style.error}>
+          Cant find any fitting characters
+        </p>
       )}
     </div>
   );

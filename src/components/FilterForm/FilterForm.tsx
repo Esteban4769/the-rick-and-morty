@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React from 'react';
 import { useFormik } from 'formik';
 import { Button, TextField } from '@mui/material';
@@ -7,6 +8,7 @@ import { buttonStyle } from '../../utils/buttonStyle';
 import { CharacterParams } from '../../types/CharacterParams';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/reduxHooks';
 import * as filterAction from '../../features/filters';
+import * as historyAction from '../../features/history';
 
 export const FilterForm = () => {
   const { character } = useAppSelector(state => state.filters);
@@ -20,8 +22,8 @@ export const FilterForm = () => {
   };
 
   const commonFieldValidation = Yup.string()
-    .matches(/^[A-Za-z0-9-]+$/, {
-      message: 'Only digits, characters, and hyphens are allowed',
+    .matches(/^[A-Za-z0-9\s-]+$/, {
+      message: 'Only digits, characters, spaces, and hyphens are allowed',
       excludeEmptyString: true,
     });
 
@@ -39,13 +41,13 @@ export const FilterForm = () => {
     onSubmit: (values) => {
       const filterValues = Object.entries(values).reduce((acc: CharacterParams, [key, value]) => {
         if (value) {
-          // eslint-disable-next-line no-param-reassign
-          acc[key] = value;
+          acc[key as keyof CharacterParams] = value;
         }
 
         return acc;
       }, {});
 
+      dispatch(historyAction.add(filterValues));
       dispatch(filterAction.set(filterValues));
     },
   });
@@ -85,7 +87,6 @@ export const FilterForm = () => {
         <Button
           sx={buttonStyle}
           variant="outlined"
-          onClick={() => {}}
           type="submit"
         >
           Find

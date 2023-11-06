@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import characterReducer from '../features/character';
 import filterReducer from '../features/filters';
+import historyReducer from '../features/history';
 
 export const store = configureStore({
   reducer: {
     characters: characterReducer,
     filters: filterReducer,
+    history: historyReducer,
   },
 });
 

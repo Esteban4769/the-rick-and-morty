@@ -1,0 +1,44 @@
+.container {
+  position: fixed;
+  right: 80px;
+  bottom: 200px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 24px
+}
+
+.icon_button {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.icon {
+  width: 24px;
+  height: auto;
+}
+
+.hidden_buttons_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.3s;
+  transform: scale(0);
+}
+
+.open {
+  transform: scale(1);
+}
+
+.small_button {
+  width: 40px;
+  height: 40px;
+}

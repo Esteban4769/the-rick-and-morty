@@ -17,8 +17,11 @@ const filtersSlice = createSlice({
     set: (state, action: PayloadAction<CharacterParams>) => {
       state.character = action.payload;
     },
+    clear: (state) => {
+      state.character = null;
+    },
   },
 });
 
 export default filtersSlice.reducer;
-export const { set } = filtersSlice.actions;
+export const { set, clear } = filtersSlice.actions;

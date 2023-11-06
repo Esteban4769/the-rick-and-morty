@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import style from './DetailsPage.module.scss';
 import { Character } from '../../types/Character';
-import { useAppSelector } from '../../utils/hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/reduxHooks';
 import { StatusIcon } from '../../components/StatusIcon';
 import { capitalize } from '../../utils/capitalize';
 import { Episode } from '../../types/Episode';
 import { getIdFromUrl } from '../../utils/getIdFromUrl';
 import { getEpisodeById } from '../../api/episode';
+import * as historyAction from '../../features/history';
 
 export const DetailsPage = () => {
   const { data: charactersData } = useAppSelector(state => state.characters);
+  const dispatch = useAppDispatch();
   const [character, setCharacter] = useState<Character | null>(null);
   const [episodes, setEpisodes] = useState<Episode[]>([]);
   const { id } = useParams();
@@ -33,7 +35,11 @@ export const DetailsPage = () => {
 
   useEffect(() => {
     if (charactersData && id) {
-      setCharacter(charactersData.results.find(char => +id === char.id) || null);
+      const findedCharacter = charactersData.results.find(char => +id === char.id) || null;
+
+      dispatch(historyAction.add(findedCharacter?.name || ''));
+
+      setCharacter(findedCharacter);
     }
   }, []);
 
