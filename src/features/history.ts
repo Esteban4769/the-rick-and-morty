@@ -14,6 +14,9 @@ const filtersSlice = createSlice({
   name: 'history',
   initialState,
   reducers: {
+    set: (state, action: PayloadAction<(CharacterParams | string)[]>) => {
+      state.data = action.payload;
+    },
     add: (state, action: PayloadAction<CharacterParams | string>) => {
       state.data.push(action.payload);
     },
@@ -24,4 +27,4 @@ const filtersSlice = createSlice({
 });
 
 export default filtersSlice.reducer;
-export const { add, clear } = filtersSlice.actions;
+export const { add, set, clear } = filtersSlice.actions;

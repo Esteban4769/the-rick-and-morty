@@ -11,9 +11,15 @@ interface Props {
 
 export const History: React.FC<Props> = ({ onClose }) => {
   const { data } = useAppSelector(state => state.history);
-  const [itemId] = useState(data.length - 1);
+  const [itemId, setItemId] = useState(data.length - 1);
 
   const isItemString = typeof data[itemId] !== 'string';
+  const isLast = itemId === data.length - 1;
+  const isFirst = itemId === 0;
+
+  const handleClick = (step: number) => {
+    setItemId(id => id + step);
+  };
 
   return (
     <div className={style.container}>
@@ -46,7 +52,7 @@ export const History: React.FC<Props> = ({ onClose }) => {
         ) : (
           <>
             <p className={style.text_gray}>
-              Checked character details of
+              Checked character details of:
             </p>
 
             <p className={style.text}>
@@ -54,6 +60,26 @@ export const History: React.FC<Props> = ({ onClose }) => {
             </p>
           </>
         )}
+
+        <div className={style.buttons_wrapper}>
+          <Button
+            className={style.button}
+            variant="outlined"
+            onClick={() => handleClick(-1)}
+            disabled={isFirst}
+          >
+            Prev
+          </Button>
+
+          <Button
+            className={style.button}
+            variant="outlined"
+            onClick={() => handleClick(1)}
+            disabled={isLast}
+          >
+            Next
+          </Button>
+        </div>
 
       </div>
 

@@ -1,17 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Drawer } from '@mui/material';
 import { Main } from './components/Main';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { Fab } from './components/Fab';
 import { History } from './components/History';
+import { useAppDispatch, useAppSelector } from './utils/hooks/reduxHooks';
+import * as historyAction from './features/history';
 
 export const App: React.FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { data } = useAppSelector(state => state.history);
+  const dispatch = useAppDispatch();
 
   const toggleDrawer = () => {
     setIsDrawerOpen(drawerState => !drawerState);
   };
+
+  useEffect(() => {
+    const historyData = JSON.parse(localStorage.getItem('history') || '[]');
+
+    dispatch(historyAction.set(historyData));
+
+    return (() => {
+      localStorage.setItem('history', JSON.stringify(data));
+    });
+  }, []);
 
   return (
     <div className="app">
