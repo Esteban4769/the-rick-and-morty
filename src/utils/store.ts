@@ -1,13 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import userReducer from '../features/user';
-import tableReducer from '../features/table';
-import selectedTableDataReducer from '../features/selectedTableData';
+import characterReducer from '../features/character';
+import filterReducer from '../features/filters';
 
 export const store = configureStore({
   reducer: {
-    user: userReducer,
-    table: tableReducer,
-    selectedTableData: selectedTableDataReducer,
+    characters: characterReducer,
+    filters: filterReducer,
   },
 });
 

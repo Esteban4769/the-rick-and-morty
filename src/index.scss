@@ -6,4 +6,11 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+  scroll-behavior: smooth;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
