@@ -45,23 +45,6 @@ export const HomePage = () => {
   return (
     <div className={style.container}>
 
-      {isFiltering ? (
-        <Filter onBgClick={handleFilterToggle} />
-      ) : (
-        <Button
-          sx={{
-            ...buttonStyle,
-            position: 'absolute',
-            top: '40px',
-            left: '118px',
-          }}
-          variant="outlined"
-          onClick={() => handleFilterToggle(true)}
-        >
-          Filter
-        </Button>
-      )}
-
       {!data && !loading && error && (
         <p className={style.error}>
           Error on loading
@@ -74,13 +57,30 @@ export const HomePage = () => {
         </Box>
       )}
 
-      {data && !loading && !error && (
-        <div className={style.page_items_wrapper}>
-          <CharacterList characters={data.results} />
+      <div className={style.page_items_wrapper}>
+        {isFiltering ? (
+          <Filter onBgClick={handleFilterToggle} />
+        ) : (
+          <Button
+            sx={{
+              ...buttonStyle,
+              position: 'absolute',
+            }}
+            variant="outlined"
+            onClick={() => handleFilterToggle(true)}
+          >
+            Filter
+          </Button>
+        )}
 
-          <PagePagination pageCount={pageCount} currentPage={currentPage} />
-        </div>
-      )}
+        {data && !loading && !error && (
+          <>
+            <CharacterList characters={data.results} />
+
+            <PagePagination pageCount={pageCount} currentPage={currentPage} />
+          </>
+        )}
+      </div>
 
       {data && !loading && !error && !data.results.length && (
         <p className={style.error}>
